@@ -1,0 +1,62 @@
+﻿@model Lab11.Models.Project
+
+@{
+    ViewData["Title"] = "EditProject";
+}
+
+<h1 style="margin-top:80px">Edit Project</h1>
+
+<hr/>
+
+
+<div>
+    
+    <form asp-controller="project" asp-action="EditProject" method="post">
+        <spacer-10></spacer-10>
+        <input type="hidden" asp-for="projectID" value="@Model.projectID" />
+        <div class="table">
+            <table>
+                <tr>
+                    <td>
+                        <img class="icon" src="~/image/titleicon.png" />
+                        <label class="text" asp-for="title"></label>
+                    </td>
+                    <td>
+                        <img class="icon" src="~/image/contenticon.png" />
+                        <label class="text" asp-for="content"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input asp-for="title" /></td>
+                    <td><input asp-for="content" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="icon" src="~/image/urlicon.png" />
+                        <label class="text" asp-for="url"></label>
+                    </td>
+                    <td>
+                        <img class="icon" src="~/image/categoryicon.png" />
+                        <label class="text" asp-for="category.categoryName"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input asp-for="url" /></td>
+                    <td><input asp-for="category.categoryName" /></td>
+                </tr>
+            </table>
+        </div>
+        <div class="comment-btn" style="margin-top:10px">
+            <input type="submit" value="EditProject" />
+        </div>
+        <spacer-25></spacer-25>
+
+    </form>
+</div>
+
+<div class="backdetails">
+    <a asp-action="Details" asp-route-id="@Model.projectID" title="BACK">
+        <span class="backdetails_string uppercase">Back to Details</span>
+    </a>
+</div>
+

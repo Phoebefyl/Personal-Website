@@ -1,0 +1,36 @@
+﻿@model Lab11.ViewAllModels.ProjectIndexViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="containers">
+    <main class="container">
+        <div>
+            <header class="title title--mini">
+                <h1 class="title_headline uppercase">
+                    <a class="btn-link" asp-controller="project" asp-action="Index" title="Protfolio Projects"> Portfolio Projects</a>
+                </h1>
+            </header>
+            <header class="title title--mini" style="margin-right: 60px;">
+                <div class="create--project">
+                    <a class="btn-link" asp-controller="project" asp-action="create">Create new projects</a>
+                </div>
+            </header>
+            @foreach (var project in Model.ProjectCollection)
+            {
+                <a class="btn-link" asp-controller="project" asp-action="details" asp-route-id="@project.projectID">
+                    <div class="item">
+                        <img src="@Href(project.url)" alt="@project.title">
+                        <div class="item-content">
+                            <div class="item-title"><strong>@project.title</strong></div>
+                            @*<div class="item-content">@project.content</div>*@
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </main>
+</div>

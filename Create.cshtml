@@ -1,0 +1,66 @@
+﻿@model Lab11.Models.Project;
+<!-- statement below required to use Razor TagHelpers -->
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create Project</h2>
+
+<hr />
+
+
+
+<div>
+    <form asp-controller="project" asp-action="create" enctype="multipart/form-data" method="post">
+        <spacer-10></spacer-10>
+        <div class="table">
+            <table>
+                <tr>
+                    <td>
+                        <img class="icon" src="~/image/titleicon.png" />
+                        <label class="text" asp-for="title"></label>
+                    </td>
+                    <td>
+                        <img class="icon" src="~/image/authornameicon.png" />
+                        <label class="text" asp-for="author.userName"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input asp-for="title" /></td>
+                    <td><input asp-for="author.userName" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="icon" src="~/image/contenticon.png" />
+                        <label class="text" asp-for="content"></label>
+                    </td>
+                    <td>
+                        <img class="icon" src="~/image/urlicon.png" />
+                        <label class="text" asp-for="url"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input asp-for="content" /></td>
+                    <td><input asp-for="url" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="icon" src="~/image/categoryicon.png" />
+                        <label class="text" asp-for="category.categoryName"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input asp-for="category.categoryName" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="comment-btn" style="margin-top:10px">
+            <input type="submit" value="create" />
+        </div>
+        <spacer-25></spacer-25>
+
+    </form>
+
+</div>

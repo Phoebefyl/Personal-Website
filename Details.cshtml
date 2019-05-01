@@ -1,0 +1,137 @@
+﻿@model Lab11.Models.Project;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="containers">
+    <div class="container">
+        <div content>
+            <header class="title title--mini">
+                <h1 class="title_headline uppercase">
+                    <a class="btn-link" asp-controller="project" asp-action="Index" title="Protfolio Projects"> Portfolio Projects</a>
+                </h1>
+            </header>
+            <div>
+                <div class="edit--project">
+                    <a class="btn-link" asp-controller="project" asp-action="EditProject" asp-route-projectID="@Model.projectID">Edit</a>
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="delete--project">
+                        <a class="btn-link" asp-controller="project" asp-action="DeleteProject" asp-route-projectID="@Model.projectID">Delete</a>
+                    </div>
+                }
+            </div>
+            <div class="detail-info">
+                <div class="project-info">
+                    <div class="detail-title">Project Info</div>
+                    <hr />
+                    <div class="projectimage">
+                        <img style="width: 250px; height: 214px" src="@Href(Model.url)" alt="@Model.title">
+                    </div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.title)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.title)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.author)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.author.userName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.category)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.category.categoryName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.createTime)
+                        </dt>
+                        <dd>
+                            @Html.ValueFor(model => model.createTime, "{0:dd MMM yyyy}")
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.updateTime)
+                        </dt>
+                        <dd>
+                            @Html.ValueFor(model => model.updateTime, "{0:dd MMM yyyy}")
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.content)
+                        </dt>
+                        <dd style="width:80%; margin:auto">
+                            @Html.DisplayFor(model => model.content)
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="edit--project">
+                    <a class="btn-link" asp-controller="Project" asp-action="Code" asp-route-careerID="@Model.projectID">Code</a>
+                </div>
+
+
+                <div class="comments">
+                    <div class="comment-title">Comments</div>
+                    <hr />
+
+                    <div class="comment_editor">
+                        <div class="comments-row">
+                            <div class="comment-column">
+                                <form asp-controller="project" asp-action="addcomment" method="post" id="usrform">
+                                    <div class="addcomment">
+                                        <div class="addcomment--anonymity">
+                                            <img alt="Anonymity" width="80" height="80" src="@Href("https://secure.gravatar.com/avatar/6371f3ab23417a606e12cbef6fe97394?default=https%3A%2F%2Fassets.zendesk.com%2Fhc%2Fassets%2Fdefault_avatar.png&r=g")">
+                                        </div>
+                                        <div class="addcomment--textarea">
+                                            <textarea rows="4" cols="50" name="content" form="usrform" placeholder="    Type comment here..."></textarea>
+                                        </div>
+                                        <input type="hidden" name="id" value="@Model.projectID" />
+                                        <input type="hidden" name="author.userID" value="@Model.author.userID" />
+                                        <input type="hidden" name="projectID" value="@Model.projectID" />
+                                    </div>
+                                    <div class="comment-btn">
+                                        <input type="submit" value="Comment">
+                                    </div>
+                                </form>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    @foreach (var cm in Model.comments)
+                    {
+                        <div class="comments-row">
+                            <div class="addcomment--anonymity">
+                                <img alt="Anonymity" width="80" height="80" src="@Href(cm.author.avatarURL)">
+                            </div>
+                            <div class="comment-column">
+                                <div class="comment-data">
+                                    <p class="comment-meta1"> @cm.content </p>
+                                    <div class="comment-meta2">
+                                        <span class="comment-author"> @cm.author.userName </span>
+                                        <span class="comment-date"> @Html.ValueFor(model => cm.postTime, "{0:dd MMM yyyy}") </span>
+                                    </div>
+                                </div>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div class="delete--comment">
+                                        <a asp-controller="project" asp-action="DeleteComment" asp-route-projectID="@Model.projectID" asp-route-commentID="@cm.commentID">Delete</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

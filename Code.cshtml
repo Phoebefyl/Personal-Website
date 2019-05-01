@@ -1,0 +1,151 @@
+﻿@model Lab11.Models.Project;
+
+@{
+    ViewData["Title"] = "Code";
+}
+
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+<h2>Show all projects Code</h2>
+
+<hr style="margin-bottom:20px" />
+
+<div class="diagram--project">
+    <a class="btn-link" href="#Remotedependencyanalyzer"><span>Remote dependency analyzer</span></a>
+</div>
+
+<div class="diagram--project ">
+    <a class="btn-link" href="#PresentPersonalWebsiteApp"><span>Present Personal Website App</span></a>
+</div>
+
+<div class="diagram--project">
+    <a class="btn-link" href="#Physicalcrystalmodelproject"><span>Physical crystal model project</span></a>
+</div>
+
+<hr class="seperate" />
+
+<h3 style="margin-bottom:25px;">
+    <a id="Remotedependencyanalyzer"><strong>Remote dependency analyzer</strong></a>
+</h3>
+
+<h5 style="margin-bottom:25px;">One of the important code in Remote Dependency analyzer: </h5>
+
+<pre class="prettyprint">
+<code class="language-java">
+        public static void typeAnalysis(string[] args, List<string>
+            files, Repository rep)
+            {
+            foreach (string file in files)
+            {
+            //Console.Write("\n  Processing file {0}", System.IO.Path.GetFileName(file));
+
+            if (!rep.semi.open(file as string))
+            {
+            Console.Write("\n  Can't open {0}\n\n", args[0]);
+            return;
+            }
+
+            BuildCodeAnalyzer builder = new BuildCodeAnalyzer(rep);
+            TypeAnalysis parser = builder.build();
+
+            try
+            {
+            while (rep.semi.get().Count > 0)
+            parser.parse(rep.semi);
+            }
+            catch (Exception ex)
+            {
+            Console.Write("\n\n  {0}\n", ex.Message);
+            }
+            // Console.Write("\n");
+            rep.stack.clear();
+            rep.semi.close();
+
+            }
+            }
+
+            public static void depAnalysis(string[] args, List<string>
+                files, Repository rep)
+                {
+                foreach (string file in files)
+                {
+
+                if (!rep.semi.open(file as string))
+                {
+                Console.Write("\n  Can't open {0}\n\n", args[0]);
+                return;
+                }
+
+                BuildDepAnalyzer builder = new BuildDepAnalyzer(rep);
+                DepAnalysis parser = builder.build();
+
+                try
+                {
+                while (rep.semi.get().Count > 0)
+                parser.parse(rep.semi);
+                }
+                catch (Exception ex)
+                {
+                Console.Write("\n\n  {0}\n", ex.Message);
+                }
+
+
+                // Console.Write("\n");
+                }
+                }
+        </code>
+</pre>
+
+<div class="diagram--project">
+    <a class="btn-link" href="https://github.com/Phoebefyl/681"> Detail project information</a>
+</div>
+
+<hr class="seperate"/>
+
+<h3 style="margin:100px 0 25px 0">
+    <a id="PresentPersonalWebsiteApp"><strong>Present Personal Website App</strong></a>
+</h3>
+
+
+<h5 style="margin-bottom:25px;">One of the important code in Present Personal Website App: </h5>
+
+<pre class="prettyprint">
+    <code class="language-cs">
+        [HttpPost]
+        public IActionResult AddComment(int id, Comment cm)
+        {
+        var projects = projectService_.getAll();
+        var pj = projects.FirstOrDefault(a => a.projectID == id);
+        cm.project = pj;
+        cm.author = pj.author;  //demo data  --> will be replaced by current user
+        cm.postTime = DateTime.Now;
+
+        projectService_.addComment(id, cm);
+
+        //var newComment = new Comment() {
+
+
+        //};
+        return RedirectToAction("details", new { id = id });
+        }
+
+        public IActionResult DeleteComment(int projectID, int commentID)
+        {
+
+        projectService_.deleteComment(projectID, commentID);
+
+        return RedirectToAction("details", new { id = projectID });
+        }
+    </code>
+</pre>
+
+
+<h3 style="margin:100px 0 25px 0">
+    <a id="PresentPersonalWebsiteApp"><strong>Present Personal Website App</strong></a>
+</h3>
+
+<hr class="seperate" />
+
+<h3 style="margin-top:100px">
+    <a id="Physicalcrystalmodelproject"><strong>Physical crystal model project</strong></a>
+</h3>
